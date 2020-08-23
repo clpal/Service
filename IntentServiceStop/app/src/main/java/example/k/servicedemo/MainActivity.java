@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements ResultListner {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, MyIntentService.class);
+              intent.putExtra("maxCountValue",10);
+
                 startService(intent);
             }
         });
@@ -49,24 +51,26 @@ public class MainActivity extends AppCompatActivity implements ResultListner {
 
     @Override
     protected void onStart() {
+        super.onStart();
         broadcastReceiver = new MyBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_STOP);
 
         registerReceiver(broadcastReceiver, intentFilter);
-        super.onStart();
+
     }
 
     @Override
     protected void onStop() {
-        unregisterReceiver(broadcastReceiver);
+
         super.onStop();
+        unregisterReceiver(broadcastReceiver);
     }
 
     public void onDestroy() {
-        unregisterReceiver(broadcastReceiver);
-        super.onDestroy();
 
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
 

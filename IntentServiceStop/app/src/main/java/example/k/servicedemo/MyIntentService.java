@@ -2,12 +2,14 @@ package example.k.servicedemo;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 
 public class MyIntentService extends IntentService {
     public static volatile boolean shouldContinue = true;
+    public static  String TAG = "MyIntentService";
     //I've used a BroadcastReceiver inside the service that simply puts a stop boolean to true
 
     public MyIntentService() {
@@ -17,12 +19,14 @@ public class MyIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        doWork();
+       int maxCountValue= intent.getIntExtra("maxCountValue",-1);
+        doWork(maxCountValue);
     }
 
-    private void doWork() {
-        for (int i = 0; i <= 10; i++) {
+    private void doWork(  int value ) {
+        for (int i = 0; i <= value; i++) {
             try {
+                Log.d(TAG, "onHandleWork: The number is: " + i);
                 Thread.sleep(2000);
 
                 Intent result = new Intent();
