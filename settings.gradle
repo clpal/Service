@@ -1,0 +1,2 @@
+rootProject.name = "LocalBroadcastUpdateUISecond"
+include ':app'
